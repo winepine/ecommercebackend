@@ -12,7 +12,7 @@ const U_routes=require('./routes/user')// imported routes
 const A_routes=require('./routes/admin/user');
 const C_routes=require('./routes/category');
 
-
+//helllllloooo
 //this also works fine lekin aik developed library h for parsing toh use that
 //app.use(express.json());
 //middleware is used for manipulation b/w a request making and halding request

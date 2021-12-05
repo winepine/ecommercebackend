@@ -53,7 +53,7 @@ exports.signup = (req, res) => {
   });
 };
 exports.signin = async (req, res) => {
-   User.findOne({ email: req.body.email }).exec((error, user) => {
+  User.findOne({ email: req.body.email }).exec((error, user) => {
     if (user) {
       /*
       if( user.comparePassword(req.body.password, function(err, isMatch) {
@@ -64,9 +64,8 @@ exports.signin = async (req, res) => {
     })){
       */
       if (user.authenticate(req.body.password)) {
-        
         //generate token
-       
+
         const token = jwt.sign(
           {
             _id: user._id,

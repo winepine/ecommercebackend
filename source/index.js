@@ -11,7 +11,7 @@ const mongoose=require('mongoose')
 const U_routes=require('./routes/user')// imported routes
 const A_routes=require('./routes/admin/user');
 const C_routes=require('./routes/category');
-//dtf//
+//dtfs//
 //helllllloooo
 //hello basit 
 //this also works fine lekin aik developed library h for parsing toh use that

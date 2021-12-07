@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-const joi = require("joi");
-const express = require("express");
-const path = require("path");
-const env = require("dotenv").config({
-  path: path.resolve(__dirname, "../.env"),
-});
-const app = express();
-const session = require("express-session");
-const validresult = require("express-validator");
-const MongoStore = require("connect-mongo");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const U_routes = require("./routes/user"); // imported routes
-const A_routes = require("./routes/admin/user");
-const C_routes = require("./routes/category");
-
-=======
 const joi=require('joi')
 const express=require('express');
 const path = require('path')
@@ -30,10 +12,9 @@ const U_routes=require('./routes/user')// imported routes
 const A_routes=require('./routes/admin/user');
 const C_routes=require('./routes/category');
 //dtfsss//
->>>>>>> c93179a16ab81fdb44708bd096b49459ede52f40
 //helllllloooo
 //hello basit
-// sir shahrise
+// sir shah
 //this also works fine lekin aik developed library h for parsing toh use that
 //app.use(express.json());
 //middleware is used for manipulation b/w a request making and halding request

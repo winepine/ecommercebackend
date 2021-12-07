@@ -24,7 +24,7 @@ exports.createCategory = (req, res) => {
   });
 };
 let nestedCategory = (category, parentId=null) =>{
-  const categoryList=[];
+  const categoryList = [];
   let categories;
   if(parentId == null){
     categories= category.filter(cat=>cat.parentId == undefined);
@@ -37,7 +37,7 @@ let nestedCategory = (category, parentId=null) =>{
       _id: i._id,
       name: i.name,
       slug: i.slug,
-      children: this.createCategory(category)
+      children: nestedCategory(category, i._id)
     })
   }
   return categoryList;
@@ -49,9 +49,9 @@ exports.getCategory = (req, res) => {
         err,
       });
     } 
-    if(Category){
-      const categoryList=nestedCategory(Category);
-      return res.status(200).json({
+    if(data){
+      const categoryList=nestedCategory(data);
+       return res.status(200).json({
         categoryList
       })
     }

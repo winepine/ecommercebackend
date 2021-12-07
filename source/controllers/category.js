@@ -23,17 +23,39 @@ exports.createCategory = (req, res) => {
     }
   });
 };
+let nestedCategory = (category, parentId=null) =>{
+  const categoryList=[];
+  let categories;
+  if(parentId == null){
+    categories= category.filter(cat=>cat.parentId == undefined);
+  }
+  else{
+    categories=category.filter(cat=>cat.parentId == parentId)
+  }
+  for(let i of categories){
+    categoryList.push({
+      _id: i._id,
+      name: i.name,
+      slug: i.slug,
+      children: this.createCategory(category)
+    })
+  }
+  return categoryList;
+} 
 exports.getCategory = (req, res) => {
   Category.find({}).exec((err, data) => {
     if (err) {
       return res.status(400).json({
         err,
       });
-    } else {
-      res.status(200).json({
-        data,
-      });
+    } 
+    if(Category){
+      const categoryList=nestedCategory(Category);
+      return res.status(200).json({
+        categoryList
+      })
     }
+
   });
 };
 exports.requireSignin = (req, res, next) => {

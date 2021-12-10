@@ -1,7 +1,7 @@
 const Category = require("../models/catagory"); // schema for categories
 const slugify = require("slugify"); // this is used to create a unique category;
 const jwt = require("jsonwebtoken");
-//New function
+//New function added
 exports.createCategory = (req, res) => {
   const obj = {
     name: req.body.name,

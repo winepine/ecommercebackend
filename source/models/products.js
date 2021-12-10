@@ -1,3 +1,4 @@
+const string = require('joi/lib/types/string');
 const mongoose = require('mongoose');
 const productSchema= new mongoose.Schema({
 name:{
@@ -9,6 +10,10 @@ slug:{
 type: String,
 required: true,
 unique: true
+},
+quantity:{
+    type: Number,
+    required:true
 },
 brand:{
 type:String,

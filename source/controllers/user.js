@@ -1,5 +1,6 @@
 //sari authetication happens here:
 const User = require("../models/user.js"); // imported user schema
+const jwt=require('jsonwebtoken');
 exports.signup = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (user)

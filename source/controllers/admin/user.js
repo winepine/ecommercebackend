@@ -96,3 +96,12 @@ exports.requireSignin=(req,res,next)=>{
     next();
 
 }
+exports.verifyAdmin = (req, res, next) => {
+    if (req.body.role !== "admin") {
+      return res.status(400).json({
+        message: "Access for Admin Only ",
+      });
+    }
+    next();
+  };
+  

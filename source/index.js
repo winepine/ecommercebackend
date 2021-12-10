@@ -11,6 +11,7 @@ const mongoose=require('mongoose')
 const U_routes=require('./routes/user')// imported routes
 const A_routes=require('./routes/admin/user');
 const C_routes=require('./routes/category');
+const P_routes=require('./routes/product');
 //dtfsss//
 //helllllloooo
 //hello basit
@@ -67,6 +68,7 @@ app.post('/data',(req,res,next)=>{
 app.use("/api", U_routes);
 app.use("/api", A_routes);
 app.use("/api", C_routes);
+app.use("/api", P_routes);
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });

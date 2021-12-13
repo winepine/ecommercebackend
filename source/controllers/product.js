@@ -40,3 +40,22 @@ obj.save((error, user) => {
 })
 
 }
+exports.getProduct=(req,res)=>{
+  
+  Product.findOne({ productId: req.body.productId }).exec((error, user) => {
+    if(error)
+    {
+      res.status(400).json({
+        message:"Product not found"
+      });
+    }
+    if (user) {
+      res.status(200).json({
+        user
+      })
+    }
+
+      
+})
+
+}

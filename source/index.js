@@ -12,6 +12,7 @@ const U_routes=require('./routes/user')// imported routes
 const A_routes=require('./routes/admin/user');
 const C_routes=require('./routes/category');
 const P_routes=require('./routes/product');
+const CA_routes=require('./routes/cart')
 //dtfsss//
 //helllllloooo
 //hello basit
@@ -69,6 +70,7 @@ app.use("/api", U_routes);
 app.use("/api", A_routes);
 app.use("/api", C_routes);
 app.use("/api", P_routes);
+app.use("/api", CA_routes);
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });

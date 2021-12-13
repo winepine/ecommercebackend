@@ -24,7 +24,11 @@ exports.addItem=async(req,res)=>
           cart.Items.push({ productId, productQuantity, productPrice });
         }
         cart = await cart.save();
-        return res.status(201).send(cart);
+        return res.status(201).json({
+            //send(cart);
+            cart
+        })
+       
       } else {
         //no cart for user, create new cart
         const newCart = await Cart.create({
@@ -32,11 +36,19 @@ exports.addItem=async(req,res)=>
           products: [{ productId, productQuantity, productPrice }]
         });
   
-        return res.status(201).send(newCart);
+        return res.status(201).json({
+            //send(newCart);
+            newCart
+        })
+      
       }
     } catch (err) {
       console.log(err);
-      res.status(500).send("Something went wrong");
+      res.status(400).json({
+        //send("Something went wrong");
+        message:"Something went wrong"
+      })
+      
     }
 
 }

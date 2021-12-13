@@ -49,6 +49,8 @@ creator:{
 },
 category:{
     categoryId: {type: mongoose.Schema.Types.ObjectId, ref:'Category'}
+
+    
 }
 
 }, {timestamps: true});

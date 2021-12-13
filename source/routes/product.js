@@ -1,7 +1,7 @@
 const express= require('express');
 
 const { requireSignin, verifyAdmin} = require('../controllers/admin/user');
-const { createProduct } = require('../controllers/product');
+const { createProduct, getProduct } = require('../controllers/product');
 const multer=require('multer');
 const shortid= require('shortid');
 const path=require('path');
@@ -22,6 +22,6 @@ const storage = multer.diskStorage({
   const picture=multer({storage: storage});
 
 router.post('/product/create', requireSignin, verifyAdmin,picture.array('image'), createProduct);
-router.get('/product/products')
+router.get('/product/products', getProduct);
 
 module.exports=router;

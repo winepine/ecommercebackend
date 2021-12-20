@@ -23,6 +23,18 @@ router.post("/signin", validateSignin, isRequestValidated, signin);
 router.get("/homepage", requireSignin, (req, res) => {
   res.status(200).json({ user: "welcome to profile" });
 });
+//update the password here
+router.post("/update-password",async(req,res)=>{
+ 
+  const { password, password2, email } = req.body;
+  console.log(password);
+  console.log(password2);
+  var salt = await bcrypt.genSalt(12);
+  var hash = await bcrypt.hash(password, salt);
+  //await USER.findOneAndUpdate({ email: email }, { $set: { USER.token: Token } })
+  await User.findOneAndUpdate({ email: email }, { $set: { hashed_password: hash } });
+      res.redirect('/homepage');
+           });
 
 //creating a link for password reset adn sending to email
 router.post('/reset-password',(req,res)=>{

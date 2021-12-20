@@ -1,4 +1,9 @@
 const express = require("express");
+var nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const bcrypt = require("bcrypt");
+const USER=require('../controllers/user')
+const User=require('../models/user')// imported user schema
 const { signup, signin, requireSignin } = require("../controllers/user");
 const {
   validateSignup,
@@ -19,4 +24,37 @@ router.get("/homepage", requireSignin, (req, res) => {
   res.status(200).json({ user: "welcome to profile" });
 });
 
+//creating a link for password reset adn sending to email
+router.post('/reset-password',(req,res)=>{
+  
+  var transporter = nodemailer.createTransport({
+      service: 'gmail', //targeting gmail
+      auth: { //providing authentication
+        user: 'rabia.shabbir444@gmail.com',
+        pass: 'imtoocute1'
+      }
+    });
+    
+    //sendout email
+    //bodyof email
+     //var url = "http://localhost:4000/user/reset-password?token=" + token;
+    var mailOptions = {
+     
+      from: 'rabia.shabbir444@gmail.com',
+      to: req.body.email,
+      subject: "RESET YOUR PASSWORD",
+     text: `Click on this link to reset your password http://localhost:4000/api/update-password`+req.body.token,
+   // html: `<h3> Click on this link to reset your password : ${url} </h3>`,
+    };
+    
+    //passingmailoptions
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) { //checking error
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+    
+})
 module.exports = router;

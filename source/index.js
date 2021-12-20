@@ -1,18 +1,20 @@
-const joi=require('joi')
-const express=require('express');
-const path = require('path')
-const env=require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-const app=express();
-const session = require('express-session');
-const validresult=require('express-validator')
-const MongoStore = require('connect-mongo');
-const bodyParser=require('body-parser')
-const mongoose=require('mongoose')
-const U_routes=require('./routes/user')// imported routes
-const A_routes=require('./routes/admin/user');
-const C_routes=require('./routes/category');
-const P_routes=require('./routes/product');
-const CA_routes=require('./routes/cart')
+const joi = require("joi");
+const express = require("express");
+const path = require("path");
+const env = require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
+const app = express();
+const session = require("express-session");
+const validresult = require("express-validator");
+const MongoStore = require("connect-mongo");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const U_routes = require("./routes/user"); // imported routes
+const A_routes = require("./routes/admin/user");
+const C_routes = require("./routes/category");
+const P_routes = require("./routes/product");
+const CA_routes = require("./routes/cart");
 //dtfsss//
 //helllllloooo
 //hello basit
@@ -21,7 +23,7 @@ const CA_routes=require('./routes/cart')
 //app.use(express.json());
 //middleware is used for manipulation b/w a request making and halding request
 app.use(express.json());
-
+app.use(express.static(__dirname + "/pictures"));
 app.use(
   session({
     secret: "secret key",

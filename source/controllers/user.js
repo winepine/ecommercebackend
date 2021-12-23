@@ -1,6 +1,6 @@
 //sari authetication happens here:
 const User = require("../models/user.js"); // imported user schema
-const jwt=require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 exports.signup = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (user)
@@ -33,7 +33,7 @@ exports.signup = (req, res) => {
                */
 
       if (user) {
-        req.session.save((err) => {
+        req.session.save(err => {
           if (err) {
             console.log(err);
             console.log("nhi hoowa");
@@ -51,6 +51,7 @@ exports.signup = (req, res) => {
     });
   });
 };
+//too
 exports.signin = async (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (user) {
@@ -106,7 +107,7 @@ exports.requireSignin = (req, res, next) => {
     const token = req.query.authorization.split(" ")[1];
     const user = jwt.verify(token, process.env.JWT_KEY);
     req.user = user;
-    return res.status(200).json(user);
+    // return res.status(200).json(user);
   } else {
     return res.status(400).json({
       message: "User is not authorized",
@@ -114,5 +115,3 @@ exports.requireSignin = (req, res, next) => {
   }
   next();
 };
-
-

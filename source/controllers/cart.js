@@ -1,57 +1,53 @@
 //import cart schema;
-const Cart= require('../models/cart');
+const Cart = require("../models/cart");
+const jwt = require("jsonwebtoken");
+//too
+exports.addItem = async (req, res) => {
+  const { productId, productQuantity, productPrice, userId } = req.body;
+  //const userId = req.body.userId
 
-exports.addItem=async(req,res)=>
-{
-    const { productId, productQuantity, productPrice, userId } = req.body;
-  
-//    const userId = req.body.userId; 
-  
-    try {
-      let cart = await Cart.findOne({ userId });
-  
-      if (cart) {
-        //cart exists for user
-        let itemIndex = cart.Items.findIndex(p => p.productId == productId);
-  
-        if (itemIndex > -1) {
-          //product exists in the cart, update the quantity
-          let productItem = cart.Items[itemIndex];
-          productItem.productQuantity = productQuantity;
-          cart.Items[itemIndex] = productItem;
-        } else {
-          //product does not exists in cart, add new item
-          cart.Items.push({ productId, productQuantity, productPrice });
-        }
-        cart = await cart.save();
-        return res.status(201).json({
-            //send(cart);
-            cart
-        })
-       
+  try {
+    let cart = await Cart.findOne({ userId });
+
+    if (cart) {
+      //cart exists for user
+      let itemIndex = cart.Items.findIndex(p => p.productId == productId);
+
+      if (itemIndex > -1) {
+        //product exists in the cart, update the quantity
+        let productItem = cart.Items[itemIndex];
+        productItem.productQuantity = productQuantity;
+        cart.Items[itemIndex] = productItem;
       } else {
-        //no cart for user, create new cart
-        const newCart = await Cart.create({
-          userId,
-          products: [{ productId, productQuantity, productPrice }]
-        });
-  
-        return res.status(201).json({
-            //send(newCart);
-            newCart
-        })
-      
+        //product does not exists in cart, add new item
+        cart.Items.push({ productId, productQuantity, productPrice });
       }
-    } catch (err) {
-      console.log(err);
-      res.status(400).json({
-        //send("Something went wrong");
-        message:"Something went wrong"
-      })
-      
-    }
+      cart = await cart.save();
+      console.log(cart);
+      return res.status(200).json({
+        cart,
+      });
+    } else {
+      //no cart for user, create new cart
+      const newCart = await Cart.create({
+        userId,
+        products: [{ productId, productQuantity, productPrice }],
+      });
+      console.log(newCart);
 
-}
+      return res.status(200).json({
+        //send(newCart);
+        newCart,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
+      //send("Something went wrong");
+      message: "Something went wrong",
+    });
+  }
+};
 
 // exports.addItem =(req,res)=>{
 //     User.findOne({ user: req.body._id }).exec((err, user) => {
@@ -59,9 +55,9 @@ exports.addItem=async(req,res)=>
 //         {
 //             throw(err);
 //         }
-//         //agar cart pehle hi bani h h toh sirf prduct update karna h 
+//         //agar cart pehle hi bani h h toh sirf prduct update karna h
 //         if (user) {
-//             //agar toh cart mil gayi purani wali toh bas item usmein push kardo 
+//             //agar toh cart mil gayi purani wali toh bas item usmein push kardo
 //             // cart:
 //             // [{
 //             //     item1,
@@ -91,7 +87,7 @@ exports.addItem=async(req,res)=>
 //                     })
 //                 }
 //             })
-           
+
 //         }
 //         else
 //         {
@@ -99,7 +95,7 @@ exports.addItem=async(req,res)=>
 //                 userId: req.body.userId,
 //                 Items: [req.body.Items]
 //             })
-            
+
 //             cartObj.save((err, data) => {
 //                 if (err) {
 //                   return res.status(400).json({
@@ -112,7 +108,7 @@ exports.addItem=async(req,res)=>
 //                   });
 //                 }
 //               });
-            
+
 //             res.status(200).json({
 //                 message:"Item Added"
 //             })

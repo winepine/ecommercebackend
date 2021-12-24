@@ -55,7 +55,20 @@ exports.addItem=async(req,res)=>
 
 }
 
-
+exports.getCart=(req,res)=>{
+  Cart.find({}).exec((error, user) => {
+    if (error) {
+      res.status(400).json({
+        message: "Cart not found",
+      });
+    }
+    if (user) {
+      return res.status(200).json({
+        user,
+      });
+    }
+  });
+}
 
 
 // exports.addItem =(req,res)=>{

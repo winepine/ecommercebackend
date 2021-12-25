@@ -25,7 +25,10 @@ exports.addItem=async(req,res)=>
         } 
         else {
           //product does not exists in cart, add new item
-          cart.Items.push({ productId, productQuantity, productPrice, Total});
+          let productItem = cart.Items[itemIndex];
+          productItem.Total = productItem.productQuantity  * productItem.productPrice;
+          cart.Items[itemIndex] = productItem;
+          cart.Items.push({ productId, productQuantity, productPrice});
         }
         cart = await cart.save();
         console.log(cart);

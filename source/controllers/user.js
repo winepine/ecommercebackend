@@ -113,5 +113,18 @@ exports.requireSignin = (req, res) => {
       message: "User is not authorized",
     });
   }
-  
+  exports.deleteUser=(req, res) => {
+    const { email } = req.params;
+    User.collection('email').findOneAndDelete({email: email}, 
+    (err, result) => {
+    if (err) 
+    return res.status(400).json({
+      message:"User could not be Deleted"
+    });
+    if(result)
+      return res.status(200).json({
+        message:"User Deleted"
+    });
+  });
+  }
 };

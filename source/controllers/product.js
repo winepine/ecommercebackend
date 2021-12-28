@@ -1,5 +1,6 @@
 const Product = require("../models/products"); // imported user schema
 const slugify = require("slugify");
+const Category=require("../models/category")
 exports.createProduct = (req, res) => {
   console.log(req.body.name);
   const {
@@ -43,15 +44,16 @@ exports.createProduct = (req, res) => {
   });
 };
 exports.getProduct = (req, res) => {
-  Product.find({}).exec((error, user) => {
-    if (error) {
-      res.status(400).json({
-        message: "Product not found",
-      });
+  const{slug}=req.body.slug;
+  Category.findOne({slug:slug}).exec((error, category)=>{
+    if(error){
+      return res.status(401).json({message:"Category undefined"});
     }
-    if (user) {
-      return res.status(200).json({
-        user,
+    if(category){
+      Product.find({category:category._id}).exec((error,products)=>{
+        res.status.json({
+          products
+        });
       });
     }
   });

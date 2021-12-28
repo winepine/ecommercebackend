@@ -102,7 +102,7 @@ exports.signin = async (req, res) => {
     }
   });
 };
-exports.requireSignin = (req, res, next) => {
+exports.requireSignin = (req, res) => {
   if (req.query.authorization) {
     const token = req.query.authorization.split(" ")[1];
     const user = jwt.verify(token, process.env.JWT_KEY);
@@ -113,5 +113,5 @@ exports.requireSignin = (req, res, next) => {
       message: "User is not authorized",
     });
   }
-  next();
+  
 };

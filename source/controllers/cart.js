@@ -25,7 +25,11 @@ exports.addItem=async(req,res)=>
         } 
         else {
           //product does not exists in cart, add new item
+          let productItem = cart.Items[itemIndex];
+          productItem.Total = productItem.productQuantity  * productItem.productPrice;
+          cart.Items[itemIndex] = productItem;
           cart.Items.push({ productId, productQuantity, productPrice, Total});
+          
         }
         cart = await cart.save();
         console.log(cart);
@@ -56,7 +60,7 @@ exports.addItem=async(req,res)=>
 }
 
 exports.getCart=(req,res)=>{
-  Cart.find({ userId: req.body.userId }).exec((error, user) => {
+  Cart.findOne({ userId: req.body.userId }).exec((error, user) => {
     if (error) {
       res.status(400).json({
         message: "Cart not found",
@@ -68,6 +72,7 @@ exports.getCart=(req,res)=>{
       });
     }
   });
+
 }
 
 

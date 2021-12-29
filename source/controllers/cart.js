@@ -59,7 +59,7 @@ exports.addItem=async(req,res)=>
 }
 
 exports.getCart=(req,res)=>{
-  Cart.find({ userId: req.body.userId }).exec((error, user) => {
+  Cart.findOne({ userId: req.body.userId }).exec((error, user) => {
     if (error) {
       res.status(400).json({
         message: "Cart not found",
@@ -71,6 +71,7 @@ exports.getCart=(req,res)=>{
       });
     }
   });
+
 }
 
 

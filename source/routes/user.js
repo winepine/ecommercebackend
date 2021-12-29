@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const USER = require("../controllers/user");
 const User = require("../models/user"); // imported user schema
-const { signup, signin, requireSignin } = require("../controllers/user");
+const { signup, signin, requireSignin,deleteUser } = require("../controllers/user");
 const {
   validateSignup,
   validateSignin,
@@ -21,6 +21,7 @@ router.post("/signup", validateSignup, isRequestValidated, signup);
 
 router.post("/signin", validateSignin, isRequestValidated, signin);
 //THIS SETS AN OBJECT - 'USER'
+router.delete("/deleteuser", deleteUser);
 router.get("/homepage", (req, res) => {
   if (req.query.authorization) {
     const token = req.query.authorization.split(" ")[1];
@@ -33,6 +34,7 @@ router.get("/homepage", (req, res) => {
     });
   }
 });
+
 //update the password here
 router.post("/update-password", async (req, res) => {
   const { password, password2, email } = req.body;

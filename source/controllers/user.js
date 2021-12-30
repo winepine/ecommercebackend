@@ -102,7 +102,7 @@ exports.signin = async (req, res) => {
     }
   });
 };
-exports.requireSignin = (req, res) => {
+exports.requireSignin = (req, res,next) => {
   if (req.query.authorization) {
     const token = req.query.authorization.split(" ")[1];
     const user = jwt.verify(token, process.env.JWT_KEY);
@@ -112,7 +112,10 @@ exports.requireSignin = (req, res) => {
     return res.status(400).json({
       message: "User is not authorized",
     });
-  }
+   
+  } 
+ next();
+};
   exports.deleteUser=(req, res) => {
     
     User.findOneAndDelete({email:req.body.email}).exec((error, user)=>{
@@ -126,4 +129,4 @@ exports.requireSignin = (req, res) => {
     });
   });
   }
-};
+

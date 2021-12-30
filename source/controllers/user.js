@@ -114,14 +114,13 @@ exports.requireSignin = (req, res) => {
     });
   }
   exports.deleteUser=(req, res) => {
-    const { email } = req.params;
-    User.collection('email').findOneAndDelete({email: email}, 
-    (err, result) => {
-    if (err) 
+    
+    User.findOneAndDelete({email:req.body.email}).exec((error, user)=>{
+    if (error) 
     return res.status(400).json({
       message:"User could not be Deleted"
     });
-    if(result)
+    if(user)
       return res.status(200).json({
         message:"User Deleted"
     });

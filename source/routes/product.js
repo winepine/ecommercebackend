@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { requireSignin, verifyAdmin } = require("../controllers/admin/user");
-const { createProduct, getProduct } = require("../controllers/product");
+const { createProduct, getProduct, getProducthome } = require("../controllers/product");
 const multer = require("multer");
 const shortid = require("shortid");
 const path = require("path");
@@ -28,5 +28,6 @@ router.post(
   createProduct
 );
 router.get("/product/products", getProduct);
+//router.get("/product/prodcat", getProducthome);
 
 module.exports = router;

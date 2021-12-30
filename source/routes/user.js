@@ -21,7 +21,8 @@ router.post("/signup", validateSignup, isRequestValidated, signup);
 
 router.post("/signin", validateSignin, isRequestValidated, signin);
 //THIS SETS AN OBJECT - 'USER'
-router.delete("/deleteuser", deleteUser);
+//router.post("/deleteuser", deleteUser);
+
 router.get("/homepage", (req, res) => {
   if (req.query.authorization) {
     const token = req.query.authorization.split(" ")[1];

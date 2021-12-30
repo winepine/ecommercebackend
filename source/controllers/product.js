@@ -1,6 +1,6 @@
 const Product = require("../models/products"); // imported user schema
 const slugify = require("slugify");
-const Category=require("../models/category")
+const Category=require("/Users/user/Desktop/backend/ecommercebackend/source/models/catagory.js")
 exports.createProduct = (req, res) => {
   console.log(req.body.name);
   const {
@@ -43,7 +43,28 @@ exports.createProduct = (req, res) => {
     }
   });
 };
-exports.getProduct = (req, res) => {
+exports.getProduct=(req,res)=>{
+ 
+  
+    Product.find({ productId: req.body.productId }).exec((error, user) => {
+      if(error)
+      {
+        res.status(400).json({
+          message:"Product not found"
+        });
+      }
+      if (user) {
+        res.status(200).json({
+          user
+        })
+      }
+  
+        
+  })
+  
+  
+}
+exports.getProductCategory = (req, res) => {
   const{slug}=req.body.slug;
   Category.findOne({slug:slug}).exec((error, category)=>{
     if(error){

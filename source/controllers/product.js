@@ -45,7 +45,7 @@ exports.createProduct = (req, res) => {
 };
 exports.getProduct=(req,res)=>{
  
-  
+    
     Product.find({ productId: req.body.productId }).exec((error, user) => {
       if(error)
       {
@@ -65,16 +65,27 @@ exports.getProduct=(req,res)=>{
   
 }
 exports.getProductCategory = (req, res) => {
-  const{slug}=req.body.slug;
-  Category.findOne({slug:slug}).exec((error, category)=>{
+ // const{name}=req.body.slug;
+  Category.findOne({name:req.body.name}).exec((error, category)=>{
     if(error){
       return res.status(401).json({message:"Category undefined"});
     }
     if(category){
       Product.find({category:category._id}).exec((error,products)=>{
-        res.status.json({
-          products
-        });
+        if(products){
+          return(res.status(200).json({
+            products
+          })
+          )
+        }
+        if(error){
+          return(
+            res.status(400).json({
+               message:"Products not found"
+            })
+          )
+        }
+       
       });
     }
   });

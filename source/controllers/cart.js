@@ -6,6 +6,7 @@ exports.addItem=async(req,res)=>
 {
     const { productId, productQuantity, productPrice, userId} = req.body;
     const quantity=Number.parseInt(productQuantity);
+    console.log(quantity);
     //const userId = req.body.userId
     try {
       let cart = await Cart.findOne({ userId });
@@ -25,7 +26,7 @@ exports.addItem=async(req,res)=>
         } 
         else {
           //product does not exists in cart, add new item
-          let productItem = cart.Items[itemIndex];
+          let productItem = cart.Items[itemIndex+1];
           productItem.Total = productItem.productQuantity  * productItem.productPrice;
           cart.Items[itemIndex] = productItem;
           cart.Items.push({ productId, productQuantity, productPrice});

@@ -14,6 +14,7 @@ exports.signup = (req, res) => {
       cnic: req.body.cnic,
       email: req.body.email,
       password: req.body.password,
+      
     });
 
     console.log(newUser);

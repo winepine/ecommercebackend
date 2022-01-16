@@ -29,7 +29,8 @@ exports.addItem=async(req,res)=>
           let productItem = cart.Items[itemIndex+1];
           productItem.Total = productItem.productQuantity  * productItem.productPrice;
           cart.Items[itemIndex] = productItem;
-          cart.Items.push({ productId, productQuantity, productPrice});
+          cart.Items.push({ productId, productQuantity, productPrice, Total});
+          
         }
         cart = await cart.save();
         console.log(cart);
